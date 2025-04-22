@@ -21,15 +21,13 @@ public class ToolCreation implements ItemCreationStrategy
     @Override
     public Item fromDefaults()
     {
-        // Return a **Default** Tool
-        return null;
+        return new Tool();
     }
 
     @Override
     public int requiredNumberOfValues()
     {
-        // Replace the return value;
-        return 0;
+        return 6;
     }
 
     @SuppressWarnings({
@@ -39,16 +37,13 @@ public class ToolCreation implements ItemCreationStrategy
     @Override
     public Item fromTokens(final String... tokens)
     {
-        /*
-        return new Tool(
-            tokens[0],
-            ...
-            ...
-            ...
-        );
+        /*                        0                 1      2   3   4                 5
+                                 name              mtl    dur  sp  mdr               lvl
+            String rawStr = "Left-Handed-Hammer Titanium 9001 62 WorkAcceleration 999999";
+            String nme, int dur, int spd, String mtl, String mdr, int lvl
         */
 
-        return new Tool();
+        return new Tool(tokens[0], Integer.parseInt(tokens[2]), Integer.parseInt(tokens[3]), tokens[1], tokens[4], Integer.parseInt(tokens[5]));
     }
 
     @SuppressWarnings({
@@ -65,6 +60,7 @@ public class ToolCreation implements ItemCreationStrategy
 
         Tool theOriginal = (Tool) original;
 
-        return null;
+        return new Tool(theOriginal.getName(), theOriginal.getDurability(), theOriginal.getSpeed(),
+         theOriginal.getMaterial(), theOriginal.getModifier(), theOriginal.getModifierLevel());
     }
 }
